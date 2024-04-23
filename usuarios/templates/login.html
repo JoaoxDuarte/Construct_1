@@ -1,0 +1,16 @@
+{% extends 'base.html' %} <!-- Extende o arquivo que criei -->
+
+{% block 'body' %}
+    <div class='container'>
+        <form action="{% url 'login' %}" method="POST">{% csrf_token %} <!--Para Garantir que Não tenha Falsificação no Formulário-->
+        <br>
+            <label>E-mail</label>
+            <input type='email' placeholder='Digite seu E-mail' name='email' class='form-control'> <!-- class form-control é do Bootstrap, para melhor estilo -->
+        <br>
+            <label>Senha</label>
+            <input type='password' placeholder='Digite sua Senha' name='senha' class='form-control'>
+        <br> 
+            <input type='submit' class='btn btn-success'>
+        
+        </form>
+{% endblock %}

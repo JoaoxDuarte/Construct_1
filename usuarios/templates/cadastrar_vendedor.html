@@ -1,0 +1,58 @@
+{% extends 'base.html' %} <!-- Extende o arquivo que criei -->
+
+{% block 'body' %}
+    <div class='container'>
+        {% if messages %}
+            <br>
+            {% for message in messages %}
+                <div class="alert {{message.tags}}">{{message}}</div>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'cadastrar_vendedor' %}" method="POST">{% csrf_token %} <!--Para Garantir que Não tenha Falsificação no Formulário-->
+            <br>
+            <label>Nome</label>
+            <input type='text' placeholder='Digite seu nome' name='nome' class='form-control'>  
+            <br>
+            <label>Sobrenome</label>
+            <input type='text' placeholder='Digite seu sobrenome' name='sobrenome' class='form-control'>      
+            
+            
+            <br>
+            <label>E-mail</label>
+            <input type='email' placeholder='Digite seu e-mail' name='email' class='form-control'> <!-- class form-control é do Bootstrap, para melhor estilo -->
+        <br>
+            <label>Senha</label>
+            <input type='password' placeholder='Digite sua senha' name='senha' class='form-control'>
+        <br> 
+            <input type='submit' class='btn btn-success'>
+        </form>
+
+    <hr class="bg-hr">  <!--barra de separar-->
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Sobrenome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Último login</th>
+                <th scope="col">Excluir</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for vendedor in vendedores %}
+              <tr>
+                <th>{{vendedor.first_name}}</th> <!-- acesso o select de vendedores para cada um -->
+                <td>{{vendedor.last_name}}</td>
+                <td>{{vendedor.email}}</td>
+                <td>{% if not vendedor.last_login %}
+                        Vendedor nunca logou
+                    {% else %}
+                        {{vendedor.last_login}}
+                    {% endif %}
+                </td>
+                <td><a href="{% url 'excluir_usuario' vendedor.id %}" class="btn btn-danger">EXCLUIR</a></td>
+              </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

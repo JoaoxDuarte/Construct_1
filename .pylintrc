@@ -1,0 +1,9 @@
+[MASTER]
+    disable=
+        C0115,
+        C0303,
+        #E1101,
+
+
+#[TYPECHECK]
+#ignored-classes=Fysom,MyClass
